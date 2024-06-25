@@ -1,0 +1,1 @@
+export 'daily_word_model.dart';
