@@ -1,56 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
-import 'package:tusindirme_sozlik_flutter/home/bloc/home_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import '../../../../design/colors/colors.dart';
+import '../bloc/home_bloc.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const CardExample(),
-          const SizedBox(height: 32.0),
-          const Text("Galabaliq izlewler", style: TextStyle(fontSize: 18.0)),
-          const Text("Qaraqalpaq tili sozligi",
-              style: TextStyle(color: Colors.black38)),
-          const SizedBox(height: 24.0),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 150,
-                  childAspectRatio: 4,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 0),
-              itemBuilder: (BuildContext context, int index) {
-                return Text(
-                  "Item $index",
-                  style: const TextStyle(color: primaryColor, fontSize: 18.0),
-                );
-              },
-              itemCount: 10,
-            ),
-          )
-        ]),
-      ),
-    );
-  }
-}
-
-class CardExample extends StatefulWidget {
-  const CardExample({Key? key}) : super(key: key);
+class DailyWordCard extends StatefulWidget {
+  const DailyWordCard({Key? key}) : super(key: key);
 
   @override
-  State<CardExample> createState() => _CardExampleState();
+  State<DailyWordCard> createState() => _DailyWordCardState();
 }
 
-class _CardExampleState extends State<CardExample> {
+class _DailyWordCardState extends State<DailyWordCard> {
+
   @override
   void initState() {
-    context.read<HomeBloc>().add(GetProductEvent());
+    HomeBloc bloc = context.read<HomeBloc>();
+    bloc.add(GetDailyWordEvent());
     super.initState();
   }
 
@@ -58,12 +24,12 @@ class _CardExampleState extends State<CardExample> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is ProductLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is ProductLoadingFailedState) {
+        // if (state is HomeLoadingState) {
+        //   return const Center(
+        //     child: CircularProgressIndicator(),
+        //   );
+        // }
+        if (state is HomeLoadingFailedState) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +50,7 @@ class _CardExampleState extends State<CardExample> {
             ),
           );
         }
-        if (state is ProductLoadedState) {
+        if (state is DailyWordCardLoadedState) {
           return Center(
             child: Card(
               color: Colors.white,
@@ -107,9 +73,9 @@ class _CardExampleState extends State<CardExample> {
                               decoration: BoxDecoration(
                                   color: dailyWordsColor,
                                   borderRadius: BorderRadius.circular(30.0)),
-                              child: Text(
-                                state.data.title!.latin!,
-                                style: const TextStyle(color: primaryColor),
+                              child: const Text(
+                                "Kún sózi",
+                                style: TextStyle(color: primaryColor),
                               )),
                           TextButton(
                             onPressed: () {},
@@ -132,17 +98,17 @@ class _CardExampleState extends State<CardExample> {
                         ],
                       ),
                       const SizedBox(height: 6.0),
-                      const Row(children: [
-                        Text("Salamatliq",
-                            style:
-                                TextStyle(color: primaryColor, fontSize: 22.0)),
-                        SizedBox(width: 14.0),
-                        Icon(Icons.volume_up_rounded, color: primaryColor)
+                      Row(children: [
+                        Text("${state.data.title!.latin}",
+                            style: const TextStyle(
+                                color: primaryColor, fontSize: 22.0)),
+                        const SizedBox(width: 14.0),
+                        const Icon(Icons.volume_up_rounded, color: primaryColor)
                       ]),
                       const SizedBox(height: 6.0),
-                      const Text(
-                          "Erat tincidunt venenatis aliquet nulla. Vitae curabitur nunc risus egestas sed egestas eget egestas. Etiam faucibus elementum eu suspendisse. Convallis vel purus viverra turpis massa quis pretium est.",
-                          style: TextStyle(color: primaryColor, height: 1.2))
+                      Text("${state.data.description!.latin}",
+                          style:
+                              const TextStyle(color: primaryColor, height: 1.2))
                     ],
                   ),
                 ),

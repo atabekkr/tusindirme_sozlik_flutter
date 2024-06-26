@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
-import 'package:tusindirme_sozlik_flutter/home/bloc/home_bloc.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/home_screen.dart';
+import 'package:tusindirme_sozlik_flutter/home/presentation/home/home_screen.dart';
 import 'package:tusindirme_sozlik_flutter/words_screen.dart';
 
-import 'home/data/repository/product_repository.dart';
+import 'home/presentation/home/bloc/home_bloc.dart';
+import 'home/presentation/home/repository/home_repository.dart';
 
 void main() => runApp(const BottomNavigationBarExampleApp());
 
@@ -16,12 +16,12 @@ class BottomNavigationBarExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RepositoryProvider<ProductRepository>(
-          create: (context) => ProductRepository(),
+      home: RepositoryProvider<HomeRepository>(
+          create: (context) => HomeRepository(),
           child: BlocProvider(
             lazy: false,
             create: (BuildContext context) => HomeBloc(
-                productRepository: context.read<ProductRepository>()),
+                homeRepository: context.read<HomeRepository>()),
             child: const BottomNavigationBarExample(),
           )),
     );
@@ -58,7 +58,7 @@ class _BottomNavigationBarExampleState
 
   @override
   void initState() {
-    context.read<HomeBloc>().add(GetProductEvent());
+    context.read<HomeBloc>().add(GetDailyWordEvent());
     super.initState();
   }
 
