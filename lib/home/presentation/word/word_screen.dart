@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
@@ -77,8 +78,14 @@ class _WordScreenState extends State<WordScreen> {
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold))),
                       const SizedBox(width: 20),
-                      const Icon(Icons.volume_up_rounded,
-                          color: primaryColor, size: 30)
+                      IconButton(
+                        onPressed: () async {
+                          final player = AudioPlayer();
+                          await player.play(AssetSource("audio/assets_number_0.wav"));
+                        },
+                        icon: const Icon(Icons.volume_up_rounded,
+                            color: primaryColor, size: 30),
+                      )
                     ],
                   ),
                   Align(
@@ -90,7 +97,9 @@ class _WordScreenState extends State<WordScreen> {
                           border: Border.all(color: Colors.black12, width: 1),
                           borderRadius: BorderRadius.circular(4)),
                       margin: const EdgeInsets.fromLTRB(20, 20, 0, 20),
-                      child: Text(state.word.category?.latin?.toUpperCase() ?? "Not found",
+                      child: Text(
+                          state.word.category?.latin?.toUpperCase() ??
+                              "Not found",
                           style: const TextStyle(color: primaryColor)),
                     ),
                   ),
