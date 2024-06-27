@@ -23,7 +23,7 @@ class _PopularSearchListState extends State<PopularSearchList> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is HomeLoadingFailedState) {
+        if (state.status == EnumStatus.error) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -37,35 +37,31 @@ class _PopularSearchListState extends State<PopularSearchList> {
                   height: 20.0,
                 ),
                 Text(
-                  state.errorMessage,
+                  state.message,
                   style: const TextStyle(color: Colors.redAccent),
                 ),
               ],
             ),
           );
         }
-        if (state is PopularWordsLoadedState) {
-          return Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 150,
-                  childAspectRatio: 4,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 0),
-              itemBuilder: (BuildContext context, int index) {
-                String? word = state.words[index].title?.latin;
-                return Text(
-                  word ?? "Undefined",
-                  style: const TextStyle(color: primaryColor, fontSize: 18.0),
-                );
-              },
-              itemCount: state.words.length,
-            ),
-          );
-        }
-        return const SizedBox();
+        return Expanded(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 150,
+                childAspectRatio: 4,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 0),
+            itemBuilder: (BuildContext context, int index) {
+              String? word = state.words[index].title?.latin;
+              return Text(
+                word?.toLowerCase() ?? "Undefined",
+                style: const TextStyle(color: primaryColor, fontSize: 18.0),
+              );
+            },
+            itemCount: state.words.length,
+          ),
+        );
       },
     );
   }
 }
-

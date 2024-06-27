@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'daily_word_model.dart';
 
 class PopularWordsModel {
-  List<Data>? data;
+  List<Word>? data;
 
   PopularWordsModel({required this.data});
 
@@ -12,8 +12,8 @@ class PopularWordsModel {
 
 
   factory PopularWordsModel.fromJson(Map<String, dynamic> json) => PopularWordsModel(
-    data: List<Data>.from(
-        json["data"].map((x) => Data.fromJson(x))),
+    data: List<Word>.from(
+        json["data"].map((x) => Word.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() {

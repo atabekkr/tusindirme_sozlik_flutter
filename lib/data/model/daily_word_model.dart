@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class DailyWordModel {
-  Data? data;
+  Word? data;
 
   DailyWordModel({this.data});
 
@@ -9,7 +9,7 @@ class DailyWordModel {
       DailyWordModel.fromJson(json.decode(str));
 
   DailyWordModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Word.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -21,20 +21,20 @@ class DailyWordModel {
   }
 }
 
-class Data {
+class Word {
   int? id;
   int? categoryId;
   Category? category;
   Category? title;
   Category? description;
-  Null audio;
+  dynamic audio;
   Null status;
   bool? isCorrect;
   String? quantity;
   List<Null>? antonym;
   List<Null>? synonym;
 
-  Data(
+  Word(
       {this.id,
       this.categoryId,
       this.category,
@@ -47,7 +47,7 @@ class Data {
       this.antonym,
       this.synonym});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Word.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryId = json['category_id'];
     category =

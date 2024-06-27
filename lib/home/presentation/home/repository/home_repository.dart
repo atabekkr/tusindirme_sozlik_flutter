@@ -6,12 +6,12 @@ import '../../../../data/model/daily_word_model.dart';
 class HomeRepository {
   DataProvider dataProvider = DataProvider();
 
-  Future<Data> getDailyWord() async {
+  Future<Word> getDailyWord() async {
     try {
       final response = await DataProvider.getRequest(
           endpoint: "https://api.tusindirmesozlik.uz/api/word-of-the-day");
       if (response.statusCode == 200) {
-        Data dailyWord = DailyWordModel.fromRawJson(response.body).data!;
+        Word dailyWord = DailyWordModel.fromRawJson(response.body).data!;
         return dailyWord;
       } else {
         throw "Error loading product";
@@ -21,12 +21,12 @@ class HomeRepository {
     }
   }
 
-  Future<List<Data>> getPopularWords() async {
+  Future<List<Word>> getPopularWords() async {
     try {
       final response = await DataProvider.getRequest(
           endpoint: "https://api.tusindirmesozlik.uz/api/random-words");
       if (response.statusCode == 200) {
-        List<Data> words = PopularWordsModel.fromRawJson(response.body).data!;
+        List<Word> words = PopularWordsModel.fromRawJson(response.body).data!;
         return words;
       } else {
         throw "Error loading product";

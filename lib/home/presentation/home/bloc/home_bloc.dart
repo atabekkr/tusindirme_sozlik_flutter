@@ -1,48 +1,38 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../../data/model/daily_word_model.dart';
 import '../../../../helper/exception_handler.dart';
 import '../repository/home_repository.dart';
 
 part 'home_event.dart';
-
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository homeRepository;
 
-  HomeBloc({required this.homeRepository}) : super(HomeInitial()) {
+  HomeBloc({required this.homeRepository}) : super(const HomeState()) {
     on<HomeEvent>((HomeEvent event, Emitter<HomeState> emit) async {
       if (event is GetDailyWordEvent) {
+        emit(state.copyWith(status: EnumStatus.loading));
         try {
-          final data = await homeRepository.getDailyWord();
-          emit(DailyWordCardLoadedState(data: data));
+          final dailyWord = await homeRepository.getDailyWord();
+          emit(
+              state.copyWith(status: EnumStatus.success, dailyWord: dailyWord));
         } catch (e) {
           final message = handleExceptionWithMessage(e);
-          emit(HomeLoadingFailedState(errorMessage: message));
+          emit(state.copyWith(status: EnumStatus.error, message: message));
         }
       }
       if (event is GetPopularWordsEvent) {
         try {
           final words = await homeRepository.getPopularWords();
-          emit(PopularWordsLoadedState(words: words));
+          emit(state.copyWith(status: EnumStatus.success, words: words));
         } catch (e) {
           final message = handleExceptionWithMessage(e);
-          emit(HomeLoadingFailedState(errorMessage: message));
+          emit(state.copyWith(status: EnumStatus.error, message: message));
         }
       }
     });
-
-    // on<GetPopularWordsEvent>(
-    //     (GetPopularWordsEvent event, Emitter<HomeState> emit) async {
-    //   try {
-    //     final words = await homeRepository.getPopularWords();
-    //     emit(DailyWordCardLoadedState(words: words));
-    //   } catch (e) {
-    //     final message = handleExceptionWithMessage(e);
-    //     emit(HomeLoadingFailedState(errorMessage: message));
-    //   }
-    // });
   }
 }

@@ -1,40 +1,34 @@
 part of 'home_bloc.dart';
 
-abstract class HomeState extends Equatable {
-  const HomeState();
+@immutable
+class HomeState {
+  final List<Word> words;
+  final Word? dailyWord;
+  final EnumStatus status;
+  final String message;
 
-  @override
-  List<Object> get props => [];
+  const HomeState({
+    this.words = const [],
+    this.dailyWord,
+    this.status = EnumStatus.initial,
+    this.message = "",
+  });
+
+  HomeState copyWith({
+    List<Word>? words,
+    EnumStatus? status,
+    Word? dailyWord,
+    String? message,
+  }) {
+
+    return HomeState(
+      words: words ?? this.words,
+      status: status ?? this.status,
+      message: message ?? this.message,
+      dailyWord: dailyWord ?? this.dailyWord,
+    );
+  }
+
 }
 
-class HomeInitial extends HomeState {}
-
-class HomeLoadingState extends HomeState {}
-
-class DailyWordCardLoadedState extends HomeState {
-
-  const DailyWordCardLoadedState({required this.data});
-
-  final Data data;
-  @override
-  List<Object> get props => [data];
-}
-
-class PopularWordsLoadedState extends HomeState {
-
-  const PopularWordsLoadedState({required this.words});
-
-  final List<Data> words;
-
-  @override
-  List<Object> get props => [words];
-}
-
-class HomeEmptyState extends HomeState {}
-
-class HomeLoadingFailedState extends HomeState {
-
-  const HomeLoadingFailedState({required this.errorMessage});
-
-  final String errorMessage;
-}
+enum EnumStatus { initial, loading, success, error }

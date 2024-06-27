@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
+import 'package:tusindirme_sozlik_flutter/home/presentation/allwords/all_words_screen.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/home/home_screen.dart';
-import 'package:tusindirme_sozlik_flutter/words_screen.dart';
 
 import 'home/presentation/home/bloc/home_bloc.dart';
 import 'home/presentation/home/repository/home_repository.dart';
@@ -20,8 +20,8 @@ class BottomNavigationBarExampleApp extends StatelessWidget {
           create: (context) => HomeRepository(),
           child: BlocProvider(
             lazy: false,
-            create: (BuildContext context) => HomeBloc(
-                homeRepository: context.read<HomeRepository>()),
+            create: (BuildContext context) =>
+                HomeBloc(homeRepository: context.read<HomeRepository>()),
             child: const BottomNavigationBarExample(),
           )),
     );
@@ -43,7 +43,7 @@ class _BottomNavigationBarExampleState
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    WordsScreen(),
+    AllWordsScreen(),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -65,12 +65,6 @@ class _BottomNavigationBarExampleState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: primaryColor,
-        title: const Text('Túsindirme Sózlik',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
