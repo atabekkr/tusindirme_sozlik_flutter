@@ -4,7 +4,9 @@ import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/word/bloc/word_bloc.dart';
 
 class WordScreen extends StatefulWidget {
-  const WordScreen({super.key});
+  const WordScreen({super.key, required this.wordId});
+
+  final String wordId;
 
   @override
   State<WordScreen> createState() => _WordScreenState();
@@ -15,7 +17,7 @@ class _WordScreenState extends State<WordScreen> {
 
   @override
   void initState() {
-    _bloc.add(GetWordEvent(wordId: "1"));
+    _bloc.add(GetWordEvent(wordId: widget.wordId));
     super.initState();
   }
 
@@ -88,7 +90,7 @@ class _WordScreenState extends State<WordScreen> {
                           border: Border.all(color: Colors.black12, width: 1),
                           borderRadius: BorderRadius.circular(4)),
                       margin: const EdgeInsets.fromLTRB(20, 20, 0, 20),
-                      child: Text(state.word.category?.latin ?? "Not found",
+                      child: Text(state.word.category?.latin?.toUpperCase() ?? "Not found",
                           style: const TextStyle(color: primaryColor)),
                     ),
                   ),

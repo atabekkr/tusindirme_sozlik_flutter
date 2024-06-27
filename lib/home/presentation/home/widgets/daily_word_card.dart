@@ -64,7 +64,8 @@ class _DailyWordCardState extends State<DailyWordCard> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const WordScreen()));
+                            builder: (context) =>
+                                WordScreen(wordId: "${state.dailyWord?.id}")));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(20.0),

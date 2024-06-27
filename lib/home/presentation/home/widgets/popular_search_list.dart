@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/home/bloc/home_bloc.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/word/bloc/word_bloc.dart';
 
 import '../../../../design/colors/colors.dart';
+import '../../word/word_screen.dart';
 
 class PopularSearchList extends StatefulWidget {
   const PopularSearchList({super.key});
@@ -57,10 +57,20 @@ class _PopularSearchListState extends State<PopularSearchList> {
                     mainAxisSpacing: 0),
                 itemBuilder: (BuildContext context, int index) {
                   String? word = state.words[index].title?.latin;
-                  return Text(
-                    word?.toLowerCase() ?? "Undefined",
-                    style: const TextStyle(color: primaryColor, fontSize: 18.0),
-                  );
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WordScreen(
+                                      wordId: "${state.words[index].id}",
+                                    )));
+                      },
+                      child: Text(
+                        word?.toLowerCase() ?? "Undefined",
+                        style: const TextStyle(
+                            color: primaryColor, fontSize: 18.0),
+                      ));
                 },
                 itemCount: state.words.length,
               ),

@@ -3,6 +3,7 @@ import 'package:tusindirme_sozlik_flutter/data/model/daily_word_model.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
 
 import '../../../../api_provider/api.dart';
+import '../../word/word_screen.dart';
 
 class AllWordsList extends StatefulWidget {
   const AllWordsList({super.key});
@@ -56,18 +57,16 @@ class _AllWordsListState extends State<AllWordsList> {
         controller: _scrollController,
         itemCount: _isLoading ? _words.length + 1 : _words.length,
         itemBuilder: (BuildContext context, int index) {
-          if (index < _words.length) {
-            Word word = _words[index];
-            return Row(
-              children: [
-                const Icon(Icons.circle, color: primaryColor, size: 14),
-                const SizedBox(width: 8),
-                Expanded(child: Text(word.title?.latin ?? "Not found")),
-              ],
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
+          return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WordScreen(
+                              wordId: "${_words[index].id}",
+                            )));
+              },
+              child: getWords(index));
         },
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 150,
@@ -76,5 +75,20 @@ class _AllWordsListState extends State<AllWordsList> {
             mainAxisSpacing: 0),
       ),
     );
+  }
+
+  Widget getWords(int index) {
+    if (index < _words.length) {
+      Word word = _words[index];
+      return Row(
+        children: [
+          const Icon(Icons.circle, color: primaryColor, size: 14),
+          const SizedBox(width: 8),
+          Expanded(child: Text(word.title?.latin ?? "Not found")),
+        ],
+      );
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
   }
 }
