@@ -30,7 +30,7 @@ class Word {
   dynamic audio;
   Null status;
   bool? isCorrect;
-  String? quantity;
+  dynamic quantity;
   List<Null>? antonym;
   List<Null>? synonym;
 

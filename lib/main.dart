@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/allwords/all_words_screen.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/home/home_screen.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/settings/settings_screen.dart';
-
-import 'home/presentation/home/bloc/home_bloc.dart';
-import 'home/presentation/home/repository/home_repository.dart';
 
 void main() => runApp(const BottomNavigationBarExampleApp());
 
@@ -15,16 +11,9 @@ class BottomNavigationBarExampleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RepositoryProvider<HomeRepository>(
-          create: (context) => HomeRepository(),
-          child: BlocProvider(
-            lazy: false,
-            create: (BuildContext context) =>
-                HomeBloc(homeRepository: context.read<HomeRepository>()),
-            child: const BottomNavigationBarExample(),
-          )),
+      home: BottomNavigationBarExample(),
     );
   }
 }
@@ -52,12 +41,6 @@ class _BottomNavigationBarExampleState
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  @override
-  void initState() {
-    context.read<HomeBloc>().add(GetDailyWordEvent());
-    super.initState();
   }
 
   @override

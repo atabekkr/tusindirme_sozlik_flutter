@@ -9,9 +9,9 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final HomeRepository homeRepository;
+  final HomeRepository homeRepository = HomeRepository();
 
-  HomeBloc({required this.homeRepository}) : super(const HomeState()) {
+  HomeBloc() : super(const HomeState()) {
     on<HomeEvent>((HomeEvent event, Emitter<HomeState> emit) async {
       if (event is GetDailyWordEvent) {
         emit(state.copyWith(status: EnumStatus.loading));
