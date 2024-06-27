@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/allwords/all_words_screen.dart';
 import 'package:tusindirme_sozlik_flutter/home/presentation/home/home_screen.dart';
+import 'package:tusindirme_sozlik_flutter/home/presentation/settings/settings_screen.dart';
 
 import 'home/presentation/home/bloc/home_bloc.dart';
 import 'home/presentation/home/repository/home_repository.dart';
@@ -44,10 +45,7 @@ class _BottomNavigationBarExampleState
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     AllWordsScreen(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    SettingsScreen()
   ];
 
   void _onItemTapped(int index) {
