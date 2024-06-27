@@ -19,4 +19,19 @@ class WordRepository {
     }
   }
 
+  Future<List<Word>> getSearchResult(String searchText) async {
+    try {
+      final response = await DataProvider.getRequest(
+          endpoint: "https://api.tusindirmesozlik.uz/api/get-all-words?$searchText");
+      if (response.statusCode == 200) {
+        List<Word> words = SearchResultModel.fromRawJson(response.body).words!;
+        return words;
+      } else {
+        throw "Error loading product";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 }

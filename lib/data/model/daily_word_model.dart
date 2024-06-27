@@ -21,6 +21,32 @@ class DailyWordModel {
   }
 }
 
+class SearchResultModel {
+  List<Word>? words;
+
+  SearchResultModel({this.words});
+
+  factory SearchResultModel.fromRawJson(String str) =>
+      SearchResultModel.fromJson(json.decode(str));
+
+  SearchResultModel.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      words = [];
+      json['data'].forEach((v) {
+        words!.add(Word.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (words != null) {
+      data['data'] = words!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
 class Word {
   int? id;
   int? categoryId;

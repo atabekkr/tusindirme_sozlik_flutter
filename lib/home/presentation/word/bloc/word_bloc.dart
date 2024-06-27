@@ -15,10 +15,8 @@ class WordBloc extends Bloc<WordEvent, WordState> {
     on<GetWordEvent>((event, emit) async {
       emit(WordLoadingState());
       try {
-        print(event.wordId);
         final word = await repository.getWordById(event.wordId!);
         emit(WordLoadedState(word: word));
-        print(word.title?.latin ?? "salem");
       } catch (e) {
         final message = handleExceptionWithMessage(e);
         emit(WordLoadingFailedState(errorMessage: message));

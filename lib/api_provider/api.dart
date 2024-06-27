@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:tusindirme_sozlik_flutter/data/model/daily_word_model.dart';
