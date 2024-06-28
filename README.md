@@ -1,16 +1,7 @@
 # tusindirme_sozlik_flutter
 
-A new Flutter project.
+The application is called Tusindirme Sozlik, it is an explanatory dictionary of the Karakalpak language. With this app you can learn words and hear audio
+The app is built using various technologies such as Flutter, BLoC, http and more.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation:
+`git clone` https://github.com/atabekkr/tusindirme_sozlik_flutter.git
