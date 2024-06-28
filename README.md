@@ -17,4 +17,4 @@ The app is built using various technologies such as Flutter, BLoC, http and more
 </p>
 
 ## App Screen Record
-https://github.com/atabekkr/FlutterBloc/assets/117513819/7bb42729-a1d3-4886-a5fe-196477867e6d
+https://github.com/atabekkr/FlutterBloc/assets/117513819/c8bf15de-71e9-464f-85dd-9986657afa66
