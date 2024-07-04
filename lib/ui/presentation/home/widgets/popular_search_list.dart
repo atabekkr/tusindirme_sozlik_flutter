@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/home/bloc/home_bloc.dart';
 
 import '../../../../design/colors/colors.dart';
 import '../../word/word_screen.dart';
+import '../bloc/home_bloc.dart';
 
 class PopularSearchList extends StatefulWidget {
   const PopularSearchList({super.key});

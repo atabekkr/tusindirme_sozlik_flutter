@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/settings/widgets/change_font_card.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/settings/widgets/change_font_card.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

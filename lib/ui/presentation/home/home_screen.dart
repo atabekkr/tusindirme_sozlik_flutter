@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/home/widgets/daily_word_card.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/home/widgets/popular_search_list.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/home/widgets/daily_word_card.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/home/widgets/popular_search_list.dart';
 
 import '../../../design/colors/colors.dart';
 

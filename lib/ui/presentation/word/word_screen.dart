@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/word/bloc/word_bloc.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/word/bloc/word_bloc.dart';
 
 class WordScreen extends StatefulWidget {
   const WordScreen({super.key, required this.wordId});

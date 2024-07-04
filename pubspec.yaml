@@ -29,5 +29,4 @@ flutter:
   uses-material-design: true
 
   assets:
-      - assets/images/
       - assets/audio/assets_number_0.wav

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/allwords/bloc/search_bloc.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/allwords/widgets/all_words_list.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/allwords/bloc/search_bloc.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/allwords/widgets/all_words_list.dart';
 
 class AllWordsScreen extends StatefulWidget {
   const AllWordsScreen({super.key});
@@ -17,41 +17,12 @@ class _AllWordsScreenState extends State<AllWordsScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool isSearchClicked = false;
   String searchText = '';
-  List<String> items = [
-    'Items 1',
-    'Messi',
-    'Ronaldo',
-    'Virat Kohli',
-    '2',
-    'Rock',
-    'Elon Musk',
-  ];
-
-  List<String> filteredItems = [];
-
-  @override
-  void initState() {
-    super.initState();
-    filteredItems = List.from(items);
-  }
 
   void _onSearchChanged(String value) {
     setState(() {
       searchText = value;
       _bloc.add(GetSearchResultEvent(searchText: searchText));
-      myFilterItems();
     });
-  }
-
-  void myFilterItems() {
-    if (searchText.isEmpty) {
-      filteredItems = List.from(items);
-    } else {
-      filteredItems = items
-          .where(
-              (item) => item.toLowerCase().contains(searchText.toLowerCase()))
-          .toList();
-    }
   }
 
   @override
@@ -93,7 +64,6 @@ class _AllWordsScreenState extends State<AllWordsScreen> {
                     isSearchClicked = !isSearchClicked;
                     if (!isSearchClicked) {
                       _searchController.clear();
-                      myFilterItems();
                     }
                   });
                 },

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/word/repository/word_repository.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/word/repository/word_repository.dart';
 
 import '../../../../data/model/daily_word_model.dart';
 import '../../../../helper/exception_handler.dart';

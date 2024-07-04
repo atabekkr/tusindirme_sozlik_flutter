@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/allwords/all_words_screen.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/home/home_screen.dart';
-import 'package:tusindirme_sozlik_flutter/home/presentation/settings/settings_screen.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/allwords/all_words_screen.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/home/home_screen.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/settings/settings_screen.dart';
 
 void main() => runApp(const BottomNavigationBarExampleApp());
 
