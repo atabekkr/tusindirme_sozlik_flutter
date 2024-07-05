@@ -42,10 +42,10 @@ class _AllWordsListState extends State<AllWordsList> {
     setState(() {
       _isLoading = true;
     });
-    List<Word> newAlbums = await _apiProvider.fetchWords(_currentPage);
+    List<Word> newWords = await _apiProvider.fetchWords(_currentPage);
     setState(() {
       _isLoading = false;
-      _words.addAll(newAlbums);
+      _words.addAll(newWords);
       _currentPage++;
     });
   }

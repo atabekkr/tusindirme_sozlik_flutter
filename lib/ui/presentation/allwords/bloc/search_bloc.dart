@@ -3,13 +3,14 @@ import 'package:meta/meta.dart';
 
 import '../../../../data/model/daily_word_model.dart';
 import '../../../../helper/exception_handler.dart';
-import '../../word/repository/word_repository.dart';
+import '../repository/all_words_repository.dart';
 
 part 'search_event.dart';
+
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final WordRepository repository = WordRepository();
+  final AllWordsRepository repository = AllWordsRepository();
 
   SearchBloc() : super(SearchInitial()) {
     on<SearchEvent>((event, emit) async {
