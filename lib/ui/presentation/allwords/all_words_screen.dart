@@ -33,8 +33,6 @@ class _AllWordsScreenState extends State<AllWordsScreen> {
           appBar: AppBar(
             backgroundColor: primaryColor,
             centerTitle: true,
-            /* if the search button is clickable then show
-         the container otherwise text "Search Bar"*/
             title: isSearchClicked
                 ? Container(
                     height: 40,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tusindirme_sozlik_flutter/data/model/daily_word_model.dart';
 import 'package:tusindirme_sozlik_flutter/design/colors/colors.dart';
+import 'package:tusindirme_sozlik_flutter/ui/presentation/allwords/bloc/all_words_bloc.dart';
 
-import '../../../../api_provider/api.dart';
 import '../../word/word_screen.dart';
 
 class AllWordsList extends StatefulWidget {
@@ -13,11 +14,9 @@ class AllWordsList extends StatefulWidget {
 }
 
 class _AllWordsListState extends State<AllWordsList> {
+  final _bloc = AllWordsBloc();
   final ScrollController _scrollController = ScrollController();
-  final ApiProvider _apiProvider = ApiProvider();
-  final List<Word> _words = [];
   int _currentPage = 1;
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -25,8 +24,7 @@ class _AllWordsListState extends State<AllWordsList> {
     _fetchWords();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent &&
-          !_isLoading) {
+          _scrollController.position.maxScrollExtent) {
         _fetchWords();
       }
     });
@@ -39,47 +37,48 @@ class _AllWordsListState extends State<AllWordsList> {
   }
 
   _fetchWords() async {
-    setState(() {
-      _isLoading = true;
-    });
-    List<Word> newWords = await _apiProvider.fetchWords(_currentPage);
-    setState(() {
-      _isLoading = false;
-      _words.addAll(newWords);
-      _currentPage++;
-    });
+    _bloc.add(GetNewWordsEvent(pageIndex: _currentPage));
+    _currentPage++;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-        controller: _scrollController,
-        itemCount: _isLoading ? _words.length + 1 : _words.length,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WordScreen(
-                              wordId: "${_words[index].id}",
-                            )));
+    return BlocProvider(
+      create: (context) => _bloc,
+      child: BlocBuilder<AllWordsBloc, AllWordsState>(
+        builder: (context, state) {
+          return Expanded(
+            child: GridView.builder(
+              controller: _scrollController,
+              itemCount: state.words.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WordScreen(
+                                    wordId: "${state.words[index].id}",
+                                  )));
+                    },
+                    child: getWords(state, index));
               },
-              child: getWords(index));
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 150,
+                  childAspectRatio: 4,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 0),
+            ),
+          );
         },
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 150,
-            childAspectRatio: 4,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 0),
       ),
     );
   }
 
-  Widget getWords(int index) {
-    if (index < _words.length) {
-      Word word = _words[index];
+  Widget getWords(AllWordsState state, int index) {
+    print("index = $index \nlength = ${state.words.length}");
+    if (index < state.words.length) {
+      Word word = state.words[index];
       return Row(
         children: [
           const Icon(Icons.circle, color: primaryColor, size: 14),

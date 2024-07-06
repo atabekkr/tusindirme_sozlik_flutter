@@ -8,4 +8,8 @@ class AllWordsRepository {
   Future<List<Word>> getSearchResult(String searchText) async {
     return await _apiProvider.getSearchResult(searchText);
   }
+
+  Future<List<Word>> getNewWords(int pageIndex) async {
+    return await _apiProvider.fetchWords(pageIndex);
+  }
 }
